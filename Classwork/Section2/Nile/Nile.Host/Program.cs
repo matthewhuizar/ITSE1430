@@ -1,13 +1,9 @@
 ﻿/*
  * Matthew Huizar
  * ITSE 1430
- * 9/6/17
+ * 9/18/17
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nile.Host 
 {
