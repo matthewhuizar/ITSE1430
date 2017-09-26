@@ -12,7 +12,7 @@ namespace Nile
     /// </remarks>
     public class Product 
     {
-        public readonly Product None = new Product(); //set at moment instance is created
+        //public readonly Product None = new Product(); //set at moment instance is created
 
         /// <summary>Gets or sets the name.</summary>
         /// <value>Never returns null.</value>
