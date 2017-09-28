@@ -8,17 +8,19 @@ namespace Nile.Windows
         public MainForm()
         {
             InitializeComponent();
-            
         }
 
         private void button1_Click( object sender, EventArgs e )
         {
-            var child = new ProductDetailForm();
+            var product = new Product();
+            product.Name = "Product A";
+
+            var child = new ProductDetailForm("Product Details");
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
             //TODO: Save product
-            var product = child.Product;
+            //var product = child.Product;
         }
     }
 }

@@ -12,6 +12,11 @@ namespace Nile
     /// </remarks>
     public class Product 
     {
+
+        public Product ()
+        {
+            //Cross field initialization
+        }
         //public readonly Product None = new Product(); //set at moment instance is created
 
         /// <summary>Gets or sets the name.</summary>
@@ -57,12 +62,35 @@ namespace Nile
             }
         }
 
-        public int ICanOnlySetIt { get; private set; }
-        public int ICanOnlySetIt2 { get; }
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        //public abstract string Validate2();
+        /// <summary>Validates the object.<summary>///
+        /// <returns>The error message or null.</returns>
+        public virtual string Validate ()
+        {
+            //Name cannot be empty
+            if (String.IsNullOrEmpty(Name))
+                return "Name cannot be empty.";
+            //Price >= 0
+            if (Price < 0)
+                return "Price must be >= 0.";
+
+            return null;
+        }
+
+       // public int ICanOnlySetIt { get; private set; }
+       // public int ICanOnlySetIt2 { get; }
+
+        
+    
 
         private string _name;
         private string _description;
 
-        private readonly double _someValueICannotChange = 10; //alternative to const, only works on field, fixed at moment is created
+        //private readonly double _someValueICannotChange = 10; //alternative to const, only works on field, fixed at moment is created
     }
 }
