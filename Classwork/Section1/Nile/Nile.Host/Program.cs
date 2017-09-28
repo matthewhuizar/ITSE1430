@@ -14,6 +14,7 @@ namespace Nile.Host
     class Program {
         static void Main( string[] args )
         {
+            Console.WriteLine(100 - 2 * 5 / 2);
             bool quit = false;
             do
             {
