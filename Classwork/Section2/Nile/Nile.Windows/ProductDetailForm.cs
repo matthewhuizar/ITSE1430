@@ -78,6 +78,35 @@ namespace Nile.Windows
             Close();
         }
 
+        private void ProductDetailForm_FormClosing( object sender, FormClosingEventArgs e)
+        {
+            //Please no
+            //var form =(Form) sender;
+
+            //Please yes
+            var form = sender as Form;
+
+            //casting for value types
+            if( sender is int )
+            {
+                var intValue2 = (int)sender;
+            };
+
+            //Pattern matching
+            if (sender is int intValue)
+            {
+
+            };
+
+            if (MessageBox.Show(this, "Are you sure?", "Closing", MessageBoxButtons.YesNo) == DialogResult)
+                e.Cancel = true;
+        }
+        private void ProductDetailForm_FormClosed( object sender, FormClosingEventArgs e )
+        {
+            //var form = sender as Form;
+            //if (MessageBox.Show(this, "Are you sure?", "Closing", MessageBoxButtons.YesNo) == DialogResult)
+            //    e.Cancel = true;
+        }
         private decimal GetPrice ( )
         {
             if (Decimal.TryParse(_txtPrice.Text, out decimal price))
