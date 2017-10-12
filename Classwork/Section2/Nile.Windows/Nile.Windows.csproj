@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EB746FE9-F7C6-4A64-9AC7-BD5B1F1588E9}</ProjectGuid>
+    <ProjectGuid>{8F5366FA-58D9-4DD3-89C7-66975A72F676}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Nile.Windows</RootNamespace>
     <AssemblyName>Nile.Windows</AssemblyName>
@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nile\Nile.csproj">
-      <Project>{893c4573-ee4d-49f7-85ea-b1649f7b9b70}</Project>
+      <Project>{93bd7a37-01a9-498d-8479-67bef715ea20}</Project>
       <Name>Nile</Name>
     </ProjectReference>
   </ItemGroup>

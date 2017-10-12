@@ -7,8 +7,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Nile.Windows {
-    partial class AboutBox : Form {
+namespace Nile.Windows
+{
+    partial class AboutBox : Form
+    {
         public AboutBox()
         {
             InitializeComponent();

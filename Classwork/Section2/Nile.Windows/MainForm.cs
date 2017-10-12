@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Nile.Windows 
+namespace Nile.Windows
 {
-    public partial class MainForm : Form 
+    public partial class MainForm : Form
     {
         public MainForm()
         {
@@ -14,21 +14,21 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            var products = _database.GetAll();
+            UpdateList();
         }
 
-        //private int FindAvailableElement ( ) // 
+        //private int FindAvailableElement ( )
         //{
-        //    for( var index = 0; index < _products.Length; ++index) 
+        //    for (var index = 0; index < _products.Length; ++index)
         //    {
         //        if (_products[index] == null)
         //            return index;
         //    };
 
-        //    return -1; //Return -1 if nothing is there
+        //    return -1;
         //}
 
-        //private int FindFirstProduct ( )
+        //private int FindFirstProduct()
         //{
         //    for (var index = 0; index < _products.Length; ++index)
         //    {
@@ -36,8 +36,22 @@ namespace Nile.Windows
         //            return index;
         //    };
 
-        //    return -1; //Return -1 if nothing is there
+        //    return -1;
         //}
+
+        private Product GetSelectedProduct ()
+        {
+            return _listProducts.SelectedItem as Product;
+        }
+
+        private void UpdateList ()
+        {
+            _listProducts.Items.Clear();
+
+            foreach (var product in _database.GetAll())
+                _listProducts.Items.Add(product);
+        }
+
         private void OnFileExit( object sender, EventArgs e )
         {
             Close();
@@ -47,11 +61,11 @@ namespace Nile.Windows
         {
             ////Make sure there is room left
             //var index = FindAvailableElement();
-            //if (index < 0) // .Length tells you size of the array
+            //if (index < 0)
             //{
-            //    MessageBox.Show("No more products available.");
+            //    MessageBox.Show("No more products avabilable.");
             //    return;
-            //}
+            //};
 
             var child = new ProductDetailForm("Product Details");
             if (child.ShowDialog(this) != DialogResult.OK)
@@ -59,18 +73,24 @@ namespace Nile.Windows
 
             //Save product
             _database.Add(child.Product);
+            UpdateList();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
             //Are there any products?
-            //var index = FindFirstProduct(); 
-            //if (index < 0) //Check if 0 has stored data
+            //var index = FindFirstProduct();
+            //if (index < 0)
             //{
             //    MessageBox.Show("No products available.");
             //    return;
-            //}
-            var product = _database.Get();
+            //};
+            var product = GetSelectedProduct();
+            if (product == null)
+            {
+                MessageBox.Show("No products available.");
+                return;
+            };
 
             var child = new ProductDetailForm("Product Details");
             child.Product = product;
@@ -79,25 +99,28 @@ namespace Nile.Windows
 
             //Save product
             _database.Update(child.Product);
+            UpdateList();
         }
 
         private void OnProductDelete( object sender, EventArgs e )
         {
             //var index = FindFirstProduct();
-            //if (index < 0) //If nothing, return
+            //if (index < 0)
             //    return;
 
-            //var product = _products[index]; //Create new variable to reference array element
-
-            var product = _database.Get();
+            //var product = _products[index];
+            var product = GetSelectedProduct();
+            if (product == null)
+                return;
 
             //Confirm
             if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?",
-                "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                                "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
             //Delete product
-            _database.Remove(product);
+            _database.Remove(product.Id);
+            UpdateList();
         }
 
         private void OnHelpAbout( object sender, EventArgs e )
@@ -106,17 +129,16 @@ namespace Nile.Windows
             about.ShowDialog(this);
 
             //CallButton(OnProductAdd);
-        } //Add an about box
+        }
 
         public delegate void ButtonClickCall( object sender, EventArgs e );
 
-        private void CallButton (ButtonClickCall functionToCall)
+        private void CallButton ( ButtonClickCall functionToCall )
         {
             functionToCall(this, EventArgs.Empty);
         }
 
         private ProductDatabase _database = new ProductDatabase();
-        //private Product[] _products = new Product[100]; //Array of 100 nulls
-            
+        //private Product[] _products = new Product[100];
     }
 }

@@ -1,5 +1,7 @@
-﻿namespace Nile.Windows {
-    partial class AboutBox {
+﻿namespace Nile.Windows
+{
+    partial class AboutBox
+    {
         /// <summary>
         /// Required designer variable.
         /// </summary>

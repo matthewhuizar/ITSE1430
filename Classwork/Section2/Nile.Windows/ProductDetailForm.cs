@@ -8,22 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Nile.Windows 
+namespace Nile.Windows
 {
-    public partial class ProductDetailForm : Form 
+    public partial class ProductDetailForm : Form
     {
         #region Construction
-        public ProductDetailForm() //: base()
-        {
-            InitializeComponent();
-        }
 
+        public ProductDetailForm () //: base()
+        {
+            InitializeComponent();            
+        }
+        
         public ProductDetailForm ( string title ) : this()
         {
             Text = title;
         }
 
-        public ProductDetailForm ( string title, Product product ) : this(title)
+        public ProductDetailForm( string title, Product product ) : this(title)
         {
             Product = product;
         }
@@ -33,7 +34,6 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            if (DesignMode)
             if (Product != null)
             {
                 _txtName.Text = Product.Name;
@@ -54,18 +54,20 @@ namespace Nile.Windows
             Close();
         }
         
-        private void ShowError ( string message, string title)
+        private void ShowError ( string message, string title )
         {
             MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void OnSave( object sender, EventArgs e )
         {
-            if(!ValidateChildren())
+            if (!ValidateChildren())
             {
                 return;
-            }
+            };
+
             var product = new Product();
+            product.Id = Product?.Id ?? 0;
             product.Name = _txtName.Text;
             product.Description = _txtDescription.Text;
 
@@ -91,35 +93,11 @@ namespace Nile.Windows
             if (Decimal.TryParse(control.Text, out decimal price))
                 return price;
 
-            //Validate price
+            //Validate price            
             return -1;
         }
 
         private void ProductDetailForm_FormClosing( object sender, FormClosingEventArgs e )
-        {
-            //Please no
-            //var form =(Form) sender;
-
-            //Please yes
-            var form = sender as Form;
-
-            //casting for value types
-            if (sender is int)
-            {
-                var intValue2 = (int)sender;
-            };
-
-            //Pattern matching
-            if (sender is int intValue)
-            {
-
-            };
-
-            if (MessageBox.Show(this, "Are you sure?", "Closing", MessageBoxButtons.YesNo) == DialogResult)
-                e.Cancel = true;
-        }
-
-        private void ProductDetailForm_FormClosed( object sender, FormClosedEventArgs e )
         {
 
         }
@@ -131,19 +109,9 @@ namespace Nile.Windows
             if (GetPrice(tb) < 0)
             {
                 e.Cancel = true;
-                _errors.SetError(_txtPrice, "Price must be >= 0");
+                _errors.SetError(_txtPrice, "Price must be >= 0.");
             } else
                 _errors.SetError(_txtPrice, "");
-        }
-
-        private void False( object sender, EventArgs e )
-        {
-
-        }
-
-        private void ProductDetailForm_Load( object sender, EventArgs e )
-        {
-
         }
 
         private void OnValidatingName( object sender, CancelEventArgs e )
