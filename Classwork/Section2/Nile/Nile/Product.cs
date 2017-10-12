@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 namespace Nile
 {
     /// <summary>Represents a product.</summary>
-    /// <remarks>
-    /// This will represnt a product with other stuff.
-    /// </remarks>
+    /// <remarks>This will represent a product with other stuff.</remarks>
     public class Product 
     {
-
         public Product ()
         {
             //Cross field initialization
@@ -99,9 +96,6 @@ namespace Nile
 
        // public int ICanOnlySetIt { get; private set; }
        // public int ICanOnlySetIt2 { get; }
-
-        
-    
 
         private string _name;
         private string _description;

@@ -31,8 +31,8 @@
             this._childItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this._toolStripMenuItemMovies = new System.Windows.Forms.ToolStripMenuItem();
             this._childItemAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this._childItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this._childItemDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this._childItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this._toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this._childItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
@@ -48,7 +48,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(684, 24);
             this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "File";
+            this.menuStrip1.Text = "&File";
             // 
             // _toolStripMenuItemFile
             // 
@@ -56,13 +56,14 @@
             this._childItemExit});
             this._toolStripMenuItemFile.Name = "_toolStripMenuItemFile";
             this._toolStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
-            this._toolStripMenuItemFile.Text = "File";
+            this._toolStripMenuItemFile.Text = "&File";
             // 
             // _childItemExit
             // 
             this._childItemExit.Name = "_childItemExit";
-            this._childItemExit.Size = new System.Drawing.Size(152, 22);
-            this._childItemExit.Text = "Exit";
+            this._childItemExit.Size = new System.Drawing.Size(92, 22);
+            this._childItemExit.Text = "E&xit";
+            this._childItemExit.Click += new System.EventHandler(this.OnFileExit);
             // 
             // _toolStripMenuItemMovies
             // 
@@ -72,25 +73,27 @@
             this._childItemEdit});
             this._toolStripMenuItemMovies.Name = "_toolStripMenuItemMovies";
             this._toolStripMenuItemMovies.Size = new System.Drawing.Size(57, 20);
-            this._toolStripMenuItemMovies.Text = "Movies";
+            this._toolStripMenuItemMovies.Text = "&Movies";
             // 
             // _childItemAdd
             // 
             this._childItemAdd.Name = "_childItemAdd";
             this._childItemAdd.Size = new System.Drawing.Size(152, 22);
-            this._childItemAdd.Text = "Add";
-            // 
-            // _childItemEdit
-            // 
-            this._childItemEdit.Name = "_childItemEdit";
-            this._childItemEdit.Size = new System.Drawing.Size(152, 22);
-            this._childItemEdit.Text = "Edit";
+            this._childItemAdd.Text = "&Add";
+            this._childItemAdd.Click += new System.EventHandler(this.OnMovieAdd);
             // 
             // _childItemDelete
             // 
             this._childItemDelete.Name = "_childItemDelete";
             this._childItemDelete.Size = new System.Drawing.Size(152, 22);
-            this._childItemDelete.Text = "Delete";
+            this._childItemDelete.Text = "&Delete";
+            // 
+            // _childItemEdit
+            // 
+            this._childItemEdit.Name = "_childItemEdit";
+            this._childItemEdit.Size = new System.Drawing.Size(152, 22);
+            this._childItemEdit.Text = "&Edit";
+            this._childItemEdit.Click += new System.EventHandler(this.OnMovieEdit);
             // 
             // _toolStripMenuItemHelp
             // 
@@ -98,13 +101,14 @@
             this._childItemAbout});
             this._toolStripMenuItemHelp.Name = "_toolStripMenuItemHelp";
             this._toolStripMenuItemHelp.Size = new System.Drawing.Size(44, 20);
-            this._toolStripMenuItemHelp.Text = "Help";
+            this._toolStripMenuItemHelp.Text = "&Help";
             // 
             // _childItemAbout
             // 
             this._childItemAbout.Name = "_childItemAbout";
-            this._childItemAbout.Size = new System.Drawing.Size(152, 22);
-            this._childItemAbout.Text = "About";
+            this._childItemAbout.Size = new System.Drawing.Size(107, 22);
+            this._childItemAbout.Text = "&About";
+            this._childItemAbout.Click += new System.EventHandler(this.OnHelpAbout);
             // 
             // MainForm
             // 
