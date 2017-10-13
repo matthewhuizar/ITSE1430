@@ -72,7 +72,7 @@ namespace MovieLib.Windows
             };
 
             if (MessageBox.Show(this, $"Are you sure you want to delete '{_movie.Title}'?",
-                                "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No);
+                                "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             if (_movie.Title !=  "")
             {
                 _movie.Title = "";
