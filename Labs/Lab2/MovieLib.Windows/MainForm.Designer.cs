@@ -87,6 +87,7 @@
             this._childItemDelete.Name = "_childItemDelete";
             this._childItemDelete.Size = new System.Drawing.Size(152, 22);
             this._childItemDelete.Text = "&Delete";
+            this._childItemDelete.Click += new System.EventHandler(this.OnMovieDelete);
             // 
             // _childItemEdit
             // 
@@ -118,6 +119,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.ShowIcon = false;
             this.Text = "Movie Library";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

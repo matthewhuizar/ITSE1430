@@ -43,6 +43,7 @@
             // 
             // _btnCancel
             // 
+            this._btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._btnCancel.Location = new System.Drawing.Point(348, 247);
             this._btnCancel.Name = "_btnCancel";
             this._btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -53,6 +54,7 @@
             // 
             // _btnSave
             // 
+            this._btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._btnSave.Location = new System.Drawing.Point(267, 247);
             this._btnSave.Name = "_btnSave";
             this._btnSave.Size = new System.Drawing.Size(75, 23);
@@ -63,6 +65,7 @@
             // 
             // _txtLength
             // 
+            this._txtLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._txtLength.Location = new System.Drawing.Point(102, 158);
             this._txtLength.Name = "_txtLength";
             this._txtLength.Size = new System.Drawing.Size(100, 20);
@@ -71,6 +74,9 @@
             // 
             // _txtDescription
             // 
+            this._txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._txtDescription.Location = new System.Drawing.Point(102, 68);
             this._txtDescription.Multiline = true;
             this._txtDescription.Name = "_txtDescription";
@@ -79,6 +85,8 @@
             // 
             // _txtTitle
             // 
+            this._txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._txtTitle.Location = new System.Drawing.Point(102, 42);
             this._txtTitle.Name = "_txtTitle";
             this._txtTitle.Size = new System.Drawing.Size(321, 20);
@@ -87,6 +95,7 @@
             // 
             // _chkOwned
             // 
+            this._chkOwned.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._chkOwned.AutoSize = true;
             this._chkOwned.Location = new System.Drawing.Point(102, 184);
             this._chkOwned.Name = "_chkOwned";
@@ -125,6 +134,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(208, 161);
             this.label4.Name = "label4";
@@ -153,8 +163,12 @@
             this.Controls.Add(this._txtTitle);
             this.Controls.Add(this._chkOwned);
             this.Controls.Add(this.label2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(490, 335);
             this.Name = "MovieDetailForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Movie Details";

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Matthew Huizar
+ * ITSE 1430
+ * 10/13/2017
+ */
+
+ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,11 +23,19 @@ namespace MovieLib.Windows
             InitializeComponent();
         }
 
+        public MovieDetailForm( string title ) : this()
+        {
+            Text = title;
+        }
+
+        public MovieDetailForm( string title, Movie movie ) : this(title)
+        {
+            Movie = movie;
+        }
+
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
-
-            if (DesignMode)
                 if (Movie != null)
                 {
                     _txtTitle.Text = Movie.Title;
@@ -49,17 +63,13 @@ namespace MovieLib.Windows
 
         private void OnSave( object sender, EventArgs e )
         {
-            if (!ValidateChildren())
-            {
-                return;
-            }
             var movie = new Movie();
             movie.Title = _txtTitle.Text;
             movie.Description = _txtDescription.Text;
             movie.Length = GetLength(_txtLength);
             movie.IsOwned = _chkOwned.Checked;
 
-            ////Add validation
+            //Add validation
             var error = movie.Validate();
             if (!String.IsNullOrEmpty(error))
             {
@@ -68,17 +78,17 @@ namespace MovieLib.Windows
                 return;
             };
 
-            //Movie = movie;
+            Movie = movie;
             this.DialogResult = DialogResult.OK;
             Close();
         }
 
         private int GetLength( TextBox control )
         {
-            if (Int32.TryParse(control.Text, out int price))
-                return price;
+            if (Int32.TryParse(control.Text, out int length))
+                return length;
 
-            //Validate price
+            //Validate length
             return -1;
         }
 
@@ -98,7 +108,7 @@ namespace MovieLib.Windows
             if (GetLength(tb) < 0)
             {
                 e.Cancel = true;
-                _errors.SetError(_txtLength, "Price must be >= 0");
+                _errors.SetError(_txtLength, "Length must be >= 0");
             } else
                 _errors.SetError(_txtLength, "");
         }

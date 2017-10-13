@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Matthew Huizar
+ * ITSE 1430
+ * 10/13/2017
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,13 +45,9 @@ namespace MovieLib
         }
 
         /// <summary>Gets or sets the length.</summary>
-        public int Length
-        {
-            get { return _length; }
-            set { _length = value; }
-        }
+        public int Length { get; set; } = 0;
 
-        /// <summary>Determines if discontinued.</summary>
+        /// <summary>Determines if owned.</summary>
         public bool IsOwned { get; set; }
 
         public override string ToString()
@@ -53,23 +55,21 @@ namespace MovieLib
             return Title;
         }
 
-        //public abstract string Validate2();
         /// <summary>Validates the object.<summary>///
         /// <returns>The error message or null.</returns>
         public virtual string Validate()
         {
             //Name cannot be empty
+            //Length cannot be < 0
+            if (Length < 0 )
+                return "Length must be >= 0.";
             if (String.IsNullOrEmpty(Title))
-                return "Name cannot be empty.";
-            //Price >= 0
-           // if (Length < 0)
-            //    return "Price must be >= 0.";
+               return "Name cannot be empty.";
 
             return null;
         }
 
         private string _name;
         private string _description;
-        private int _length;
     }
 }
