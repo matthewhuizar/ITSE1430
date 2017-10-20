@@ -1,71 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nile
+namespace Nile.Stores
 {
     /// <summary>Base class for product database.</summary>
-    public class ProductDatabase
-    {
-        public ProductDatabase ()
-        {
-            var product = new Product();
-            product.Name = "Galaxy S7";
-            product.Price = 650;
-            Add(product);
-
-            product = new Product();
-            product.Name = "Samsung Note 7";
-            product.Price = 150;
-            product.IsDiscontinued = true;
-            Add(product);
-
-            product = new Product();
-            product.Name = "Windows Phone";
-            product.Price = 100;
-            Add(product);
-
-            product = new Product();
-            product.Name = "iPhone X";
-            product.Price = 1900;
-            product.IsDiscontinued = true;
-            Add(product);
-        }
-
+    public class MemoryProductDatabase : ProductDatabase
+    {        
         /// <summary>Adds a product.</summary>
         /// <param name="product">The product to add.</param>
         /// <returns>The added product.</returns>
-        public Product Add ( Product product )
+        protected override Product AddCore ( Product product )
         {
-            //TODO: Validate
-            if (product == null)
-                return null;
-            if (!String.IsNullOrEmpty(product.Validate()))
-                return null;
-
-            //Emulate database by storing copy
             var newProduct = CopyProduct(product);
             _products.Add(newProduct);
-            newProduct.Id = _nextId++;
+
+            if (newProduct.Id <= 0)
+                newProduct.Id = _nextId++;
+            else if (newProduct.Id >= _nextId)
+                _nextId = newProduct.Id + 1;
 
             return CopyProduct(newProduct);
-
-            //var item = _list[0];
-
-            //TODO: Implement Add
-            //return product;
         }
 
         /// <summary>Get a specific product.</summary>
         /// <returns>The product, if it exists.</returns>
-        public Product Get ( int id )
+        protected override Product GetCore ( int id )
         {
-            //TODO: Validate
-            if (id <= 0)
-                return null;
-
             var product = FindProduct(id);
 
             return (product != null) ? CopyProduct(product) : null;
@@ -73,14 +37,11 @@ namespace Nile
 
         /// <summary>Gets all products.</summary>
         /// <returns>The products.</returns>
-        public Product[] GetAll ()
+        protected override IEnumerable<Product> GetAllCore ()
         {
-            var items = new Product[_products.Count];
-            var index = 0;
             foreach (var product in _products)
-                items[index++] = CopyProduct(product);
+                yield return CopyProduct(product);
 
-            return items;
             //How many products?
             //var count = 0;
             //foreach (var product in _products)
@@ -104,12 +65,8 @@ namespace Nile
 
         /// <summary>Removes the product.</summary>
         /// <param name="product">The product to remove.</param>
-        public void Remove ( int id )
+        protected override void RemoveCore ( int id )
         {
-            //TODO: Validate
-            if (id <= 0)
-                return;
-
             var product = FindProduct(id);
             if (product != null)
                 _products.Remove(product);
@@ -124,19 +81,8 @@ namespace Nile
         /// <summary>Updates a product.</summary>
         /// <param name="product">The product to update.</param>
         /// <returns>The updated product.</returns>
-        public Product Update ( Product product )
+        protected override Product UpdateCore ( Product existing, Product product )
         {
-            //TODO: Validate
-            if (product == null)
-                return null;
-            if (!String.IsNullOrEmpty(product.Validate()))
-                return null;
-
-            //Get existing product
-            var existing = FindProduct(product.Id);
-            if (existing == null)
-                return null;
-
             //Replace 
             _products.Remove(existing);
             
@@ -145,7 +91,7 @@ namespace Nile
 
             return CopyProduct(newProduct);
         }
-
+        
         private Product CopyProduct ( Product product )
         {
             if (product == null)
