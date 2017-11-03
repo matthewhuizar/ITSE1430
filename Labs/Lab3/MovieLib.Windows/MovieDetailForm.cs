@@ -1,10 +1,9 @@
 ﻿/*
  * Matthew Huizar
  * ITSE 1430
- * 10/13/2017
+ * 10/30/2017
  */
-
- using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,7 +46,7 @@ namespace MovieLib.Windows
             ValidateChildren();
         }
 
-        /// <summary>Gets or sets the product being shown.</summary>
+        /// <summary>Gets or sets the movie being shown.</summary>
         public Movie Movie { get; set; }
 
         private void OnCancel( object sender, EventArgs e )
@@ -63,18 +62,19 @@ namespace MovieLib.Windows
 
         private void OnSave( object sender, EventArgs e )
         {
-            var movie = new Movie();
-            movie.Title = _txtTitle.Text;
-            movie.Description = _txtDescription.Text;
-            movie.Length = GetLength(_txtLength);
-            movie.IsOwned = _chkOwned.Checked;
+            //Object initializer syntax
+            var movie = new Movie() {
+                Id = Movie?.Id ?? 0,
+                Title = _txtTitle.Text,
+                Description = _txtDescription.Text,
+                Length = GetLength(_txtLength),
+                IsOwned = _chkOwned.Checked,
+            };
 
-            //Add validation
-            var error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
+            if (!ObjectValidator.TryValidate(movie, out var errors))
             {
                 //Show the error
-                ShowError(error, "Validation Error");
+                ShowError("Not valid", "Validation Error");
                 return;
             };
 
@@ -117,5 +117,6 @@ namespace MovieLib.Windows
         {
 
         }
+
     }
 }

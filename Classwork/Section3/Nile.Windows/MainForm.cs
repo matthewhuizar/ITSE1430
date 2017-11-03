@@ -138,8 +138,6 @@ namespace Nile.Windows
             about.ShowDialog(this);         
         }
 
-        private IProductDatabase _database = new Nile.Stores.SeedMemoryProductDatabase();
-
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
             var grid = sender as DataGridView;
@@ -165,6 +163,7 @@ namespace Nile.Windows
                 DeleteProduct(product);
         }
 
+        private IProductDatabase _database = new Nile.Stores.SeedMemoryProductDatabase();
         //private Product[] _products = new Product[100];
     }
 }

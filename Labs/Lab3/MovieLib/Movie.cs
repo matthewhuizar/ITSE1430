@@ -1,11 +1,11 @@
 ﻿/*
  * Matthew Huizar
  * ITSE 1430
- * 10/13/2017
+ * 10/30/2017
  */
-
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +13,11 @@ using System.Threading.Tasks;
 namespace MovieLib 
 {
     /// <summary>Represents a movie.</summary>
-    /// <remarks></remarks>
-    public class Movie 
+    public class Movie : IValidatableObject
     {
+        /// <summary>Gets or sets the unique identifier.</summary>
+        public int Id { get; set; }
+
         /// <summary>Gets or sets the name.</summary>
         /// <value>Never returns null.</value>
         public string Title
@@ -51,18 +53,17 @@ namespace MovieLib
             return Title;
         }
 
-        /// <summary>Validates the object.<summary>///
-        /// <returns>The error message or null.</returns>
-        public virtual string Validate()
+        /// <summary>Validates the object.</summary>
+        /// <returns>The error message or null.</returns>      
+        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             //Name cannot be empty
-            //Length cannot be < 0
-            if (Length < 0 )
-                return "Length must be >= 0.";
             if (String.IsNullOrEmpty(Title))
-               return "Name cannot be empty.";
+                yield return new ValidationResult("Title cannot be empty.", new[] { nameof(Title) });
 
-            return null;
+            //Length >= 0
+            if (Length < 0)
+                yield return new ValidationResult("Length must be >= 0.", new[] { nameof(Length) });
         }
 
         private string _name;

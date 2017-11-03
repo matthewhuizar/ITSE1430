@@ -1,9 +1,8 @@
 ﻿/*
  * Matthew Huizar
  * ITSE 1430
- * 10/13/2017
+ * 10/30/2017
  */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MovieLib.Windows 
+namespace MovieLib.Windows
 {
     public partial class MainForm : Form 
     {
@@ -23,16 +22,37 @@ namespace MovieLib.Windows
             InitializeComponent();
         }
 
+        protected override void OnLoad( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            _gridMovies.AutoGenerateColumns = false;
+
+            UpdateList();
+        }
+
+        private void UpdateList ()
+        {
+            _bsMovies.DataSource = _database.GetAll().ToList();
+        }
+
+        private Movie GetSelectedMovie()
+        {
+            if (_gridMovies.SelectedRows.Count > 0)
+                return _gridMovies.SelectedRows[0].DataBoundItem as Movie;
+
+            return null;
+        }
+
         private void OnMovieAdd( object sender, EventArgs e )
         {
-
-            var child = new MovieDetailForm(); //create form
+            var child = new MovieDetailForm("Movie Details");
 
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //Save form 
-            _movie = child.Movie;            
+            _database.Add(child.Movie);
+            UpdateList();
         }
 
         private void OnHelpAbout( object sender, EventArgs e )
@@ -48,40 +68,70 @@ namespace MovieLib.Windows
 
         private void OnMovieEdit( object sender, EventArgs e )
         {
-            if (_movie.Title == "")
+            var movie = GetSelectedMovie();
+            if (movie == null)
             {
                 MessageBox.Show("No movies available.");
                 return;
             };
 
-            var child = new MovieDetailForm(); //create form
-            child.Movie = _movie;
+            EditMovie(movie);
+        }
+
+        private void EditMovie( Movie movie )
+        {
+            var child = new MovieDetailForm("Movie Details");
+            child.Movie = movie;
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //Save form 
-            _movie = child.Movie;
+            _database.Update(child.Movie);
+            UpdateList();
         }
 
         private void OnMovieDelete( object sender, EventArgs e )
         {
-            if (_movie.Title == "")
-            {
-                MessageBox.Show("No movies available.");
+            var movie = GetSelectedMovie();
+            if (movie == null)
                 return;
-            };
 
-            if (MessageBox.Show(this, $"Are you sure you want to delete '{_movie.Title}'?",
-                                "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            if (_movie.Title !=  "")
-            {
-                _movie.Title = "";
-                _movie.Description = "";
-                _movie.Length = 0;
-                _movie.IsOwned = false;
-            }
+            DeleteMovie(movie);
         }
 
-        private Movie _movie = new Movie();
+        private void DeleteMovie( Movie movie )
+        {
+            if (MessageBox.Show(this, $"Are you sure you want to delete '{movie.Title}'?",
+                                "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            //Delete product
+            _database.Remove(movie.Id);
+            UpdateList();
+        }
+
+        private void OnEditRow( object sender, DataGridViewCellEventArgs e )
+        {
+            var grid = sender as DataGridView;
+
+            if (e.RowIndex < 0)
+                return;
+
+            var row = grid.Rows[e.RowIndex];
+            var item = row.DataBoundItem as Movie;
+
+            if (item != null)
+                EditMovie(item);
+        }
+
+        private void OnKeyDownGrid( object sender, KeyEventArgs e )
+        {
+            if (e.KeyCode != Keys.Delete)
+                return;
+
+            var movie = GetSelectedMovie();
+            if (movie != null)
+                DeleteMovie(movie);
+        }
+        private IMovieDatabase _database = new MovieLib.Data.Memory.MemoryMovieDatabase();
     }
 }

@@ -82,6 +82,7 @@
             this._txtDescription.Name = "_txtDescription";
             this._txtDescription.Size = new System.Drawing.Size(321, 84);
             this._txtDescription.TabIndex = 1;
+
             // 
             // _txtTitle
             // 

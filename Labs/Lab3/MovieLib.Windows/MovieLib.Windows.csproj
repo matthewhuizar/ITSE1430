@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -63,6 +64,7 @@
     <Compile Include="MovieDetailForm.Designer.cs">
       <DependentUpon>MovieDetailForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ObjectValidator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
@@ -83,6 +85,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\MovieLib.IMovieDatabase.datasource" />
+    <None Include="Properties\DataSources\MovieLib.Movie.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -97,6 +101,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MovieLib.Data.Memory\MovieLib.Data.Memory.csproj">
+      <Project>{bae27cd5-a298-45e8-ab56-91ec78ed84d0}</Project>
+      <Name>MovieLib.Data.Memory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MovieLib\MovieLib.csproj">
       <Project>{af51ca9b-a1dc-48cc-a2be-10de34213898}</Project>
       <Name>MovieLib</Name>
