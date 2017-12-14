@@ -109,7 +109,7 @@ namespace Nile.Windows
             //Validate price            
             return -1;
         }
-        
+
         private void OnValidatingPrice( object sender, CancelEventArgs e )
         {
             var tb = sender as TextBox;

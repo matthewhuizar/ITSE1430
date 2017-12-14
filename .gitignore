@@ -250,3 +250,9 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/Labs/Lab2
+/Classwork/HelloWorld
+/Classwork/ReflectionDemo
+/Classwork/Section1
+/Classwork/Section5
+/Classwork/Section4
